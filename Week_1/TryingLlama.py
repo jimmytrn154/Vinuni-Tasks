@@ -4,7 +4,7 @@ import torch
 
 
 # Load the model
-model_id = "meta-llama/Llama-3.1-8B-Instruct"
+model_id = "meta-llama/Llama-3.2-1B"
 
 pipeline = transformers.pipeline(
     "text-generation",
@@ -15,13 +15,14 @@ pipeline = transformers.pipeline(
 
 # Function to generate chatbot responses
 def llama_chatbot(user_input):
-    messages = [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": user_input},
-    ]
+    formatted_input = "System: You are a helpful assistant.\n*User: " + user_input + "\nAssistant:"
+    # messages = [
+    #     {"role": "system", "content": "You are a helpful assistant."},
+    #     {"role": "user", "content": user_input},
+    # ]
 
     outputs = pipeline(
-        messages,
+        formatted_input,
         max_new_tokens=256,
     )
 
